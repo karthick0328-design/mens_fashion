@@ -45,41 +45,46 @@ export const Modal: React.FC<ModalProps> = ({
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 overflow-y-auto">
+    <div className="fixed inset-0 z-50 overflow-y-auto">
       {/* Backdrop */}
       <div
         className="fixed inset-0 bg-black/75 backdrop-blur-sm transition-opacity"
         onClick={onClose}
+        aria-hidden="true"
       />
 
-      {/* Modal Dialog */}
-      <div
-        className={`relative w-full ${maxWidthClasses[maxWidth]} bg-white border border-neutral-200 rounded-2xl shadow-2xl overflow-hidden my-8 z-10 animate-in fade-in zoom-in-95 duration-150`}
-      >
-        {/* Subtle yellow top line */}
-        <div className="h-[2px] w-full bg-gradient-to-r from-transparent via-yellow-400 to-transparent" />
+      {/* Centering wrapper */}
+      <div className="flex min-h-full items-center justify-center p-3 sm:p-6 text-left">
+        {/* Modal Dialog */}
+        <div
+          className={`relative w-full ${maxWidthClasses[maxWidth]} bg-white border border-neutral-200 rounded-2xl shadow-2xl overflow-hidden my-auto z-10 animate-in fade-in zoom-in-95 duration-150`}
+        >
+          {/* Subtle yellow top line */}
+          <div className="h-[2px] w-full bg-gradient-to-r from-transparent via-yellow-400 to-transparent" />
 
-        {/* Header */}
-        <div className="flex items-center justify-between px-6 py-5 border-b border-neutral-100 ">
-          <div>
-            <h3 className="text-base font-bold font-serif-luxury tracking-wide text-neutral-900 uppercase">
-              {title}
-            </h3>
-            {subtitle && (
-              <p className="text-xs text-neutral-500 mt-0.5">{subtitle}</p>
-            )}
+          {/* Header */}
+          <div className="flex items-center justify-between px-4 sm:px-6 py-4 sm:py-5 border-b border-neutral-100">
+            <div className="pr-2">
+              <h3 className="text-sm sm:text-base font-bold font-serif-luxury tracking-wide text-neutral-900 uppercase">
+                {title}
+              </h3>
+              {subtitle && (
+                <p className="text-xs text-neutral-500 mt-0.5">{subtitle}</p>
+              )}
+            </div>
+            <button
+              onClick={onClose}
+              className="p-1.5 rounded-lg text-neutral-400 hover:text-neutral-700 hover:bg-neutral-100 transition-colors flex-shrink-0"
+              aria-label="Close dialog"
+            >
+              <X className="w-5 h-5" />
+            </button>
           </div>
-          <button
-            onClick={onClose}
-            className="p-1.5 rounded-lg text-neutral-400 hover:text-neutral-700 hover:bg-neutral-100 transition-colors"
-          >
-            <X className="w-5 h-5" />
-          </button>
-        </div>
 
-        {/* Content body */}
-        <div className="px-6 py-6 max-h-[calc(85vh-120px)] overflow-y-auto custom-scrollbar">
-          {children}
+          {/* Content body */}
+          <div className="px-4 sm:px-6 py-4 sm:py-6 max-h-[calc(85vh-90px)] overflow-y-auto custom-scrollbar">
+            {children}
+          </div>
         </div>
       </div>
     </div>

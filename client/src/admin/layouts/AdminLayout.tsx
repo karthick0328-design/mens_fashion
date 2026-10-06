@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Outlet, Link } from 'react-router-dom';
+import { Outlet, Link, useLocation } from 'react-router-dom';
 import { Shield } from 'lucide-react';
 import { useAuthStore } from '../../store/useAuthStore';
 import { AdminSidebar } from '../components/AdminSidebar';
@@ -9,11 +9,17 @@ import { AdminThemeProvider } from '../context/AdminThemeContext';
 
 export const AdminLayoutContent: React.FC = () => {
   const { isAdmin } = useAuthStore();
+  const location = useLocation();
   const [isCollapsed, setIsCollapsed] = useState(() => {
     return localStorage.getItem('aurelius_sidebar_collapsed') === 'true';
   });
   const [isMobileOpen, setIsMobileOpen] = useState(false);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
+
+  // Close mobile sidebar on route change
+  useEffect(() => {
+    setIsMobileOpen(false);
+  }, [location.pathname]);
 
   // Keyboard shortcut Ctrl+K / Cmd+K
   useEffect(() => {

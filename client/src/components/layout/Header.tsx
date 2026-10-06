@@ -36,11 +36,11 @@ export const Header: React.FC = () => {
     }
   }, [isAuthenticated, fetchCart]);
 
-  // Close dropdowns on route change
+  // Close dropdowns on route or search change
   useEffect(() => {
     setMobileMenuOpen(false);
     setUserDropdownOpen(false);
-  }, [location.pathname]);
+  }, [location.pathname, location.search]);
 
   // Click outside to close user menu
   useEffect(() => {
@@ -302,6 +302,7 @@ export const Header: React.FC = () => {
                   <Link
                     key={link.name}
                     to={link.path}
+                    onClick={() => setMobileMenuOpen(false)}
                     className="block text-sm font-semibold uppercase tracking-wider text-neutral-800 hover:text-neutral-950 py-1"
                   >
                     {link.name}
@@ -315,30 +316,35 @@ export const Header: React.FC = () => {
                 <>
                   <Link
                     to="/user/dashboard"
+                    onClick={() => setMobileMenuOpen(false)}
                     className="block text-sm font-bold text-neutral-900 hover:text-amber-800 py-1"
                   >
                     User Dashboard
                   </Link>
                   <Link
                     to="/user/profile"
+                    onClick={() => setMobileMenuOpen(false)}
                     className="block text-sm font-medium text-neutral-800 hover:text-neutral-950 py-1"
                   >
                     My Profile
                   </Link>
                   <Link
                     to="/user/order"
+                    onClick={() => setMobileMenuOpen(false)}
                     className="block text-sm font-medium text-neutral-800 hover:text-neutral-950 py-1"
                   >
                     My Orders
                   </Link>
                   <Link
                     to="/user/mywhishlist"
+                    onClick={() => setMobileMenuOpen(false)}
                     className="block text-sm font-medium text-neutral-800 hover:text-neutral-950 py-1"
                   >
                     My Wishlist
                   </Link>
                   <Link
                     to="/user/mycart"
+                    onClick={() => setMobileMenuOpen(false)}
                     className="block text-sm font-medium text-neutral-800 hover:text-neutral-950 py-1"
                   >
                     My Shopping Bag
@@ -346,13 +352,17 @@ export const Header: React.FC = () => {
                   {isAdmin && (
                     <Link
                       to="/admin/dashboard"
+                      onClick={() => setMobileMenuOpen(false)}
                       className="block text-sm font-bold text-amber-700 hover:text-amber-800 py-1"
                     >
                       Admin Dashboard
                     </Link>
                   )}
                   <button
-                    onClick={logout}
+                    onClick={() => {
+                      setMobileMenuOpen(false);
+                      logout();
+                    }}
                     className="w-full text-left text-sm font-semibold text-red-600 pt-2"
                   >
                     Sign Out
@@ -362,12 +372,14 @@ export const Header: React.FC = () => {
                 <div className="grid grid-cols-2 gap-2">
                   <Link
                     to="/login"
+                    onClick={() => setMobileMenuOpen(false)}
                     className="text-center border border-neutral-300 py-2.5 rounded text-xs font-bold uppercase tracking-wider text-neutral-800"
                   >
                     Sign In
                   </Link>
                   <Link
                     to="/register"
+                    onClick={() => setMobileMenuOpen(false)}
                     className="text-center bg-neutral-950 text-white py-2.5 rounded text-xs font-bold uppercase tracking-wider"
                   >
                     Join

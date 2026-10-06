@@ -119,7 +119,7 @@ export const CategoriesPage: React.FC = () => {
 
         <button
           onClick={handleOpenCreate}
-          className="bg-yellow-400 hover:bg-yellow-500 text-neutral-950 font-bold text-xs uppercase tracking-wider px-5 py-2.5 rounded-lg shadow-sm transition-colors flex items-center space-x-2"
+          className="w-full sm:w-auto justify-center bg-yellow-400 hover:bg-yellow-500 text-neutral-950 font-bold text-xs uppercase tracking-wider px-5 py-2.5 rounded-lg shadow-sm transition-colors flex items-center space-x-2"
         >
           <Plus className="w-4 h-4" />
           <span>New Department</span>
@@ -346,18 +346,18 @@ export const CategoriesPage: React.FC = () => {
             />
           </div>
 
-          <div className="pt-3 border-t border-neutral-200 flex justify-end space-x-2">
+          <div className="pt-3 border-t border-neutral-200 flex flex-col-reverse sm:flex-row justify-end gap-2">
             <button
               type="button"
               onClick={() => setIsModalOpen(false)}
-              className="px-4 py-2 border border-neutral-300 rounded-lg text-neutral-600 font-semibold"
+              className="w-full sm:w-auto px-4 py-2.5 border border-neutral-300 rounded-lg text-neutral-600 font-semibold text-center"
             >
               Cancel
             </button>
             <button
               type="submit"
               disabled={saveMutation.isPending}
-              className="px-6 py-2 bg-yellow-400 text-neutral-950 rounded-lg font-bold uppercase tracking-wider disabled:opacity-50"
+              className="w-full sm:w-auto px-6 py-2.5 bg-yellow-400 text-neutral-950 rounded-lg font-bold uppercase tracking-wider disabled:opacity-50 text-center"
             >
               {saveMutation.isPending ? 'Saving...' : 'Save Department'}
             </button>

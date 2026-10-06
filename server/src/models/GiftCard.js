@@ -69,6 +69,5 @@ const giftCardSchema = new mongoose.Schema(
 );
 
 giftCardSchema.index({ recipientEmail: 1 });
-giftCardSchema.index({ status: 1 });
 
 export const GiftCard = mongoose.model('GiftCard', giftCardSchema);

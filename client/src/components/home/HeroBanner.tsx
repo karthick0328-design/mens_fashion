@@ -163,7 +163,7 @@ export const HeroBanner: React.FC<HeroBannerProps> = ({ content: customContent }
             alt={content.media.alt}
             className="w-full h-full object-cover object-[center_top] sm:object-[75%_25%] lg:object-[78%_25%]"
             loading="eager"
-            fetchPriority="high"
+            {...({ fetchpriority: 'high' } as any)}
           />
         </picture>
 

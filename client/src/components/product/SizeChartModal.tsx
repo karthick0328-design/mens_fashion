@@ -15,8 +15,15 @@ export const SizeChartModal: React.FC<SizeChartModalProps> = ({
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-neutral-950/60 backdrop-blur-sm">
-      <div className="bg-white rounded-xl shadow-2xl max-w-lg w-full overflow-hidden animate-in fade-in zoom-in-95 duration-200">
+    <div
+      className="fixed inset-0 z-50 overflow-y-auto bg-neutral-950/60 backdrop-blur-sm"
+      onClick={onClose}
+    >
+      <div className="flex min-h-full items-center justify-center p-3 sm:p-4">
+        <div
+          className="bg-white rounded-xl shadow-2xl max-w-lg w-full overflow-hidden animate-in fade-in zoom-in-95 duration-200 my-auto"
+          onClick={(e) => e.stopPropagation()}
+        >
         <div className="p-5 border-b border-neutral-100 flex items-center justify-between bg-neutral-50">
           <div className="flex items-center space-x-2">
             <Ruler className="w-5 h-5 text-amber-600" />
@@ -89,5 +96,6 @@ export const SizeChartModal: React.FC<SizeChartModalProps> = ({
         </div>
       </div>
     </div>
+  </div>
   );
 };
