@@ -35,6 +35,9 @@ export interface ICategory {
   description?: string;
   isActive: boolean;
   sortOrder: number;
+  productCount?: number;
+  createdAt?: string;
+  updatedAt?: string;
 }
 
 export type ProductSize =

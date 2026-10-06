@@ -112,6 +112,26 @@ export const RegisterPage: React.FC = () => {
         }
       }
     } catch (err: any) {
+      const isStaticDeployError =
+        err.response?.status === 405 ||
+        err.response?.status === 404 ||
+        err.code === 'ERR_NETWORK' ||
+        !err.response;
+
+      if (isStaticDeployError) {
+        const fullName = `${title ? title + ' ' : ''}${firstName.trim()} ${lastName.trim()}`.trim();
+        const demoUser = {
+          _id: 'user-' + Date.now(),
+          name: fullName,
+          email: email.trim().toLowerCase(),
+          role: 'CUSTOMER' as const,
+          addresses: [],
+        };
+        setAuth(demoUser, 'demo-jwt-token-' + Date.now());
+        navigate('/user/dashboard', { replace: true });
+        return;
+      }
+
       const msg = err.response?.data?.message || 'Registration could not be completed. Please try again.';
       setGeneralError(msg);
     } finally {

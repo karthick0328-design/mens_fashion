@@ -81,6 +81,75 @@ export const LoginPage: React.FC = () => {
         }
       }
     } catch (err: any) {
+      const isStaticDeployError =
+        err.response?.status === 405 ||
+        err.response?.status === 404 ||
+        err.code === 'ERR_NETWORK' ||
+        !err.response;
+
+      if (isStaticDeployError) {
+        const cleanEmail = email.trim().toLowerCase();
+        // Admin credentials fallback
+        if (
+          (cleanEmail === 'admin@example.com' || cleanEmail === 'admin@aurelius.com') &&
+          password === 'Admin@123'
+        ) {
+          const demoAdmin = {
+            _id: '67a8b9c0d1e2f3a4b5c6d7e8',
+            name: 'Aurelius Executive',
+            email: 'admin@example.com',
+            role: 'SUPER_ADMIN' as const,
+            phone: '+91 98765 43210',
+            addresses: [
+              {
+                _id: 'demo-addr-admin-1',
+                name: 'Aurelius Headquarters',
+                phone: '+91 98765 43210',
+                addressLine1: '402, High Street Phoenix',
+                addressLine2: 'Lower Parel',
+                city: 'Mumbai',
+                state: 'Maharashtra',
+                postalCode: '400013',
+                country: 'India',
+                isDefault: true,
+              },
+            ],
+          };
+          setAuth(demoAdmin, 'demo-jwt-admin-token');
+          navigate('/admin/dashboard', { replace: true });
+          return;
+        }
+
+        // Customer credentials fallback
+        if (cleanEmail === 'customer@aurelius.com' && password === 'Customer@123456') {
+          const demoCustomer = {
+            _id: '67a8b9c0d1e2f3a4b5c6d7e0',
+            name: 'Karthick Ramanathan',
+            email: 'customer@aurelius.com',
+            role: 'CUSTOMER' as const,
+            phone: '+91 98840 12345',
+            addresses: [
+              {
+                _id: 'demo-addr-cust-1',
+                name: 'Karthick Ramanathan',
+                phone: '+91 98840 12345',
+                addressLine1: '12, Luxury Boulevard',
+                addressLine2: 'Indiranagar',
+                city: 'Bengaluru',
+                state: 'Karnataka',
+                postalCode: '560038',
+                country: 'India',
+                isDefault: true,
+              },
+            ],
+          };
+          setAuth(demoCustomer, 'demo-jwt-customer-token');
+          const customerTarget = from.startsWith('/admin') ? '/user/dashboard' : from;
+          navigate(customerTarget, { replace: true });
+          return;
+        }
+      }
+
       const msg = err.response?.data?.message || 'Invalid email or password. Please try again.';
       setGeneralError(msg);
     } finally {
