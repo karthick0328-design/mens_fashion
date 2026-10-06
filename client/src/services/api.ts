@@ -6,6 +6,10 @@ import {
   deleteMockCategory,
   INITIAL_COLLECTIONS,
   getMockDashboard,
+  getMockProducts,
+  getMockInventory,
+  getMockOrders,
+  getMockCustomers,
 } from './mockFallback';
 
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || '/api/v1';
@@ -206,8 +210,86 @@ function resolveMockFallback(config: any) {
     };
   }
 
+  // 6. Admin Products
+  if (url.includes('/admin/products')) {
+    return {
+      data: {
+        success: true,
+        data: getMockProducts(),
+        meta: { total: 4, totalPages: 1, page: 1 },
+      },
+      status: 200,
+      statusText: 'OK',
+      headers: {},
+      config,
+    };
+  }
+
+  // 7. Admin Inventory
+  if (url.includes('/admin/inventory')) {
+    return {
+      data: { success: true, data: getMockInventory() },
+      status: 200,
+      statusText: 'OK',
+      headers: {},
+      config,
+    };
+  }
+
+  // 8. Admin Orders
+  if (url.includes('/admin/orders')) {
+    return {
+      data: {
+        success: true,
+        data: getMockOrders(),
+        meta: { total: 3, totalPages: 1 },
+      },
+      status: 200,
+      statusText: 'OK',
+      headers: {},
+      config,
+    };
+  }
+
+  // 9. Admin Customers
+  if (url.includes('/admin/customers')) {
+    return {
+      data: {
+        success: true,
+        data: getMockCustomers(),
+        meta: { total: 2, totalPages: 1 },
+      },
+      status: 200,
+      statusText: 'OK',
+      headers: {},
+      config,
+    };
+  }
+
   return null;
 }
+
+// Intercept requests on static Vercel preview before network dispatch to prevent 405 console logs
+const isVercelPreview =
+  typeof window !== 'undefined' &&
+  window.location.hostname.endsWith('vercel.app') &&
+  !import.meta.env.VITE_API_BASE_URL;
+
+const defaultAdapter = axios.getAdapter(axios.defaults.adapter);
+
+api.defaults.adapter = async (config) => {
+  if (isVercelPreview) {
+    try {
+      const mock = resolveMockFallback(config);
+      if (mock) {
+        return mock as any;
+      }
+    } catch (err) {
+      return Promise.reject(err);
+    }
+  }
+  return defaultAdapter(config);
+};
 
 // Attach JWT token to requests if present in localStorage
 api.interceptors.request.use((config) => {
