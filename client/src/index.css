@@ -1,0 +1,37 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply font-sans text-brand-900 bg-white min-h-screen flex flex-col;
+  }
+  h1, h2, h3, .font-serif-luxury {
+    letter-spacing: -0.015em;
+  }
+}
+
+/* Custom scrollbars */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+::-webkit-scrollbar-thumb {
+  background: #c5cbd5;
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #9fa8b8;
+}
+
+/* Hide scrollbar for tabs/pills navigation */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}

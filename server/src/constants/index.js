@@ -1,0 +1,55 @@
+export const USER_ROLES = {
+  CUSTOMER: 'CUSTOMER',
+  SUPER_ADMIN: 'SUPER_ADMIN',
+  ADMIN: 'ADMIN',
+  MANAGER: 'MANAGER',
+  STAFF: 'STAFF',
+};
+
+export const ORDER_STATUSES = {
+  PENDING: 'PENDING',
+  CONFIRMED: 'CONFIRMED',
+  PROCESSING: 'PROCESSING',
+  SHIPPED: 'SHIPPED',
+  DELIVERED: 'DELIVERED',
+  CANCELLED: 'CANCELLED',
+  RETURN_REQUESTED: 'RETURN_REQUESTED',
+  RETURNED: 'RETURNED',
+};
+
+export const PAYMENT_METHODS = {
+  COD: 'COD',
+  ONLINE: 'ONLINE',
+  CARD: 'CARD',
+  UPI: 'UPI',
+};
+
+export const PAYMENT_STATUSES = {
+  PENDING: 'PENDING',
+  PAID: 'PAID',
+  FAILED: 'FAILED',
+  REFUNDED: 'REFUNDED',
+};
+
+export const DISCOUNT_TYPES = {
+  PERCENTAGE: 'PERCENTAGE',
+  FIXED: 'FIXED',
+};
+
+export const PRODUCT_SIZES = [
+  'XS',
+  'S',
+  'M',
+  'L',
+  'XL',
+  'XXL',
+  '3XL',
+  '28',
+  '30',
+  '32',
+  '34',
+  '36',
+  '38',
+  '40',
+  'FREE',
+];
